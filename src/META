@@ -1,0 +1,11 @@
+# OASIS_START
+# DO NOT EDIT (digest: 4af67d2f541adf1d9d251978fe04e19f)
+version = "0.1"
+description = "Bindings for Google's FarmHash library"
+archive(byte) = "farmhash.cma"
+archive(byte, plugin) = "farmhash.cma"
+archive(native) = "farmhash.cmxa"
+archive(native, plugin) = "farmhash.cmxs"
+exists_if = "farmhash.cma"
+# OASIS_STOP
+

@@ -1,0 +1,22 @@
+OASISFormat: 0.4
+Name:        FarmHash
+Version:     0.1
+Synopsis:    Bindings for Google's FarmHash library
+Authors:     everiq
+License:     MIT
+Plugins:     META (0.4), DevFiles (0.4)
+BuildTools:  ocamlbuild
+
+Library farmhash
+  Path:             src
+  Modules:          Farmhash
+  CSources:         upstream/farmhash.h, upstream/farmhash.c, farmhash_stubs.c
+  CCopt:            -g -x c++ -O2
+  CClib:            -lstdc++
+
+Executable bench
+  Path:             bench
+  MainIs:           bench.ml
+  CompiledObject:   native
+  Install:          false
+  BuildDepends:     farmhash, benchmark
