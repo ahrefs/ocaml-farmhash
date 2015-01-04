@@ -8,6 +8,8 @@
 #include <caml/unixsupport.h>
 #include <caml/custom.h>
 
+typedef util::uint128_t uint128_t; /* std::pair<uint64_t, uint64_t> */
+
 extern "C" {
 
 CAMLprim value ml_hash(value data)
@@ -71,7 +73,18 @@ CAMLprim value ml_hash64_with_seeds(value data, value seed0, value seed1)
 CAMLprim value ml_hash128(value data)
 {
     CAMLparam1(data);
-    util::uint128_t hash128 = util::Hash128(String_val(data), caml_string_length(data));
+    const uint128_t& hash128 = util::Hash128(String_val(data), caml_string_length(data));
+    value result = caml_alloc_tuple(2);
+    caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
+    caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));
+    CAMLreturn(result);
+}
+
+CAMLprim value ml_hash128_with_seed(value data, value seed_tpl)
+{
+    CAMLparam1(data);
+    const uint128_t& seed = util::Uint128(Int64_val(Field(seed_tpl, 0)), Int64_val(Field(seed_tpl, 1)));
+    const uint128_t& hash128 = util::Hash128WithSeed(String_val(data), caml_string_length(data), seed);
     value result = caml_alloc_tuple(2);
     caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
     caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));

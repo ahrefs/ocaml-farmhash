@@ -21,6 +21,7 @@ let () =
     "hash_with_seeds", ignore $ H.hash_with_seeds ~seed0 ~seed1, sample_string;
     "hash64_with_seeds", ignore $ H.hash64_with_seeds ~seed0 ~seed1, sample_string;
     "hash128", ignore $ H.hash128, sample_string;
+    "hash128_with_seed", ignore $ H.hash128_with_seed ~seed:(42L, 24L), sample_string;
   ]
   in
   let args = Sys.argv |> Array.to_list |> List.tl in (* Sys.argv.(0) is a binary name *)

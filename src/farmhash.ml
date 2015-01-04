@@ -11,3 +11,4 @@ external hash_with_seeds : string -> seed0:int -> seed1:int -> int = "ml_hash_wi
 external hash64_with_seeds : string -> seed0:int -> seed1:int -> int64 = "ml_hash64_with_seeds"
 
 external hash128 : string -> (int64 * int64) = "ml_hash128"
+external hash128_with_seed : string -> seed:(int64 * int64) -> (int64 * int64) = "ml_hash128_with_seed"
