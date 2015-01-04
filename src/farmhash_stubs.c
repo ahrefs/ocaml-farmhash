@@ -10,6 +10,18 @@
 
 typedef util::uint128_t uint128_t; /* std::pair<uint64_t, uint64_t> */
 
+namespace {
+
+inline value create_tpl128(const uint128_t& hash128)
+{
+    value result = caml_alloc_tuple(2);
+    caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
+    caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));
+    return result;
+}
+
+}
+
 extern "C" {
 
 CAMLprim value ml_hash(value data)
@@ -74,10 +86,7 @@ CAMLprim value ml_hash128(value data)
 {
     CAMLparam1(data);
     const uint128_t& hash128 = util::Hash128(String_val(data), caml_string_length(data));
-    value result = caml_alloc_tuple(2);
-    caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
-    caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));
-    CAMLreturn(result);
+    CAMLreturn(create_tpl128(hash128));
 }
 
 CAMLprim value ml_hash128_with_seed(value data, value seed_tpl)
@@ -85,10 +94,7 @@ CAMLprim value ml_hash128_with_seed(value data, value seed_tpl)
     CAMLparam1(data);
     const uint128_t& seed = util::Uint128(Int64_val(Field(seed_tpl, 0)), Int64_val(Field(seed_tpl, 1)));
     const uint128_t& hash128 = util::Hash128WithSeed(String_val(data), caml_string_length(data), seed);
-    value result = caml_alloc_tuple(2);
-    caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
-    caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));
-    CAMLreturn(result);
+    CAMLreturn(create_tpl128(hash128));
 }
 
 CAMLprim value ml_fingerprint(value data)
@@ -116,10 +122,7 @@ CAMLprim value ml_fingerprint128(value data)
 {
     CAMLparam1(data);
     const uint128_t& hash128 = util::Fingerprint128(String_val(data), caml_string_length(data));
-    value result = caml_alloc_tuple(2);
-    caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
-    caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));
-    CAMLreturn(result);
+    CAMLreturn(create_tpl128(hash128));
 }
 
 }
