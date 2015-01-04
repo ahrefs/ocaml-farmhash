@@ -12,3 +12,8 @@ external hash64_with_seeds : string -> seed0:int -> seed1:int -> int64 = "ml_has
 
 external hash128 : string -> (int64 * int64) = "ml_hash128"
 external hash128_with_seed : string -> seed:(int64 * int64) -> (int64 * int64) = "ml_hash128_with_seed"
+
+external fingerprint : string -> int = "ml_fingerprint"
+external fingerprint32 : string -> int32 = "ml_fingerprint32"
+external fingerprint64 : string -> int64 = "ml_fingerprint64"
+external fingerprint128 : string -> (int64 * int64) = "ml_fingerprint128"

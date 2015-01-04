@@ -91,4 +91,35 @@ CAMLprim value ml_hash128_with_seed(value data, value seed_tpl)
     CAMLreturn(result);
 }
 
+CAMLprim value ml_fingerprint(value data)
+{
+    CAMLparam1(data);
+    uint64_t result = util::Fingerprint64(String_val(data), caml_string_length(data));
+    CAMLreturn(Val_int(result));
+}
+
+CAMLprim value ml_fingerprint32(value data)
+{
+    CAMLparam1(data);
+    uint32_t result = util::Fingerprint32(String_val(data), caml_string_length(data));
+    CAMLreturn(caml_copy_int32(result));
+}
+
+CAMLprim value ml_fingerprint64(value data)
+{
+    CAMLparam1(data);
+    uint64_t result = util::Fingerprint64(String_val(data), caml_string_length(data));
+    CAMLreturn(caml_copy_int64(result));
+}
+
+CAMLprim value ml_fingerprint128(value data)
+{
+    CAMLparam1(data);
+    const uint128_t& hash128 = util::Fingerprint128(String_val(data), caml_string_length(data));
+    value result = caml_alloc_tuple(2);
+    caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
+    caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));
+    CAMLreturn(result);
+}
+
 }
