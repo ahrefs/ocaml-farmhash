@@ -52,4 +52,20 @@ CAMLprim value ml_hash64_with_seed(value data, value seed)
     CAMLreturn(caml_copy_int64(result));
 }
 
+CAMLprim value ml_hash_with_seeds(value data, value seed0, value seed1)
+{
+    CAMLparam3(data, seed0, seed1);
+    uint64_t result = util::Hash64WithSeeds(
+        String_val(data), caml_string_length(data), Int_val(seed0), Int_val(seed1));
+    CAMLreturn(Val_int(result));
+}
+
+CAMLprim value ml_hash64_with_seeds(value data, value seed0, value seed1)
+{
+    CAMLparam3(data, seed0, seed1);
+    uint64_t result = util::Hash64WithSeeds(
+        String_val(data), caml_string_length(data), Int_val(seed0), Int_val(seed1));
+    CAMLreturn(caml_copy_int64(result));
+}
+
 }
