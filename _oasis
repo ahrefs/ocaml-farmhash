@@ -7,16 +7,28 @@ License:     MIT
 Plugins:     META (0.4), DevFiles (0.4)
 BuildTools:  ocamlbuild
 
+Flag benchmarks
+  Description:      Enable benchmark tests
+  Default:          false
+
+Flag sse42
+  Description:      Compile with SSE4.2 extensions (must be supported by CPU)
+  Default:          false
+
+Flag aes
+  Description:      Compile with AES extensions (must be supported by CPU)
+  Default:          false
+
 Library farmhash
   Path:             src
   Modules:          Farmhash
   CSources:         upstream/farmhash.h, upstream/farmhash.c, farmhash_stubs.c
-  CCopt:            -g -x c++ -O2
+  CCopt:            -g -x c++ -O2 -fno-strict-aliasing
   CClib:            -lstdc++
-
-Flag benchmarks
-  Description:      Enable benchmark tests
-  Default:          false
+  if flag(sse42)
+    CCopt+: -DFARMHASH_ASSUME_SSE42 -msse4.2
+  if flag(aes)
+    CCopt+: -DFARMHASH_ASSUME_AESNI -maes
 
 Executable bench
   Build$:           flag(benchmarks)
