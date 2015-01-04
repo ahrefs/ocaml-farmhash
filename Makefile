@@ -44,3 +44,7 @@ configure:
 oasis:
 	oasis setup -setup-update dynamic
 
+.PHONY: bench
+bench:
+	$(SETUP) -configure --enable-benchmarks
+	$(MAKE)

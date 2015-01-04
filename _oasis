@@ -14,7 +14,12 @@ Library farmhash
   CCopt:            -g -x c++ -O2
   CClib:            -lstdc++
 
+Flag benchmarks
+  Description:      Enable benchmark tests
+  Default:          false
+
 Executable bench
+  Build$:           flag(benchmarks)
   Path:             bench
   MainIs:           bench.ml
   CompiledObject:   native
