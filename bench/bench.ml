@@ -19,6 +19,7 @@ let () =
     "hash64_with_seed", ignore $ H.hash64_with_seed ~seed, sample_string;
     "hash_with_seeds", ignore $ H.hash_with_seeds ~seed0 ~seed1, sample_string;
     "hash64_with_seeds", ignore $ H.hash64_with_seeds ~seed0 ~seed1, sample_string;
+    "hash128", ignore $ H.hash128, sample_string;
   ]
   in
   ()

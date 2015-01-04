@@ -68,4 +68,14 @@ CAMLprim value ml_hash64_with_seeds(value data, value seed0, value seed1)
     CAMLreturn(caml_copy_int64(result));
 }
 
+CAMLprim value ml_hash128(value data)
+{
+    CAMLparam1(data);
+    util::uint128_t hash128 = util::Hash128(String_val(data), caml_string_length(data));
+    value result = caml_alloc_tuple(2);
+    caml_initialize(&Field(result, 0), caml_copy_int64(hash128.first));
+    caml_initialize(&Field(result, 1), caml_copy_int64(hash128.second));
+    CAMLreturn(result);
+}
+
 }
