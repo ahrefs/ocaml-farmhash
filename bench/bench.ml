@@ -6,16 +6,12 @@ let ($) f g = fun x -> f (g x)
 
 let sample_string = "Do not go gentle into that good night"
 let seed = 42
+let seed0, seed1 = (seed, seed * seed - 1)
+
+let run_bench tests = throughputN ~repeat:3 3 tests |> tabulate
 
 let () =
-  let bench l = print_endline ""; throughputN ~repeat:3 3 l in
-  let seed0, seed1 = (seed, seed * seed - 1) in
-  let args = Array.to_list Sys.argv |> List.tl in (* strip argv.(0) *)
-  let selector = match args with
-    | [] -> fun _ -> true
-    | args -> fun (name, _, _) -> List.exists ((=) name) args
-  in
-  let () = [
+  let tests = [
     "hash", ignore $ H.hash, sample_string;
     "hash32", ignore $ H.hash32, sample_string;
     "hash64", ignore $ H.hash64, sample_string;
@@ -26,8 +22,17 @@ let () =
     "hash64_with_seeds", ignore $ H.hash64_with_seeds ~seed0 ~seed1, sample_string;
     "hash128", ignore $ H.hash128, sample_string;
   ]
-  |> List.filter selector
-  |> bench
-  |> tabulate
   in
-  ()
+  let args = Sys.argv |> Array.to_list |> List.tl in (* Sys.argv.(0) is a binary name *)
+  match args with
+  | [] ->
+    "Usage:" ::
+      "\tbench\t\t\t# to get this message" ::
+      "\tbench all\t\t# to run all tests" ::
+      "\tbench test1,test2,...\t# to run selected tests" ::
+    "Tests:" :: []
+    |> List.iter print_endline;
+    tests |> List.iter (fun (name, _, _) -> print_endline @@ "\t" ^ name)
+  | ["all"] -> run_bench tests
+  | names ->
+    tests |> List.filter (fun (n, _, _) -> List.exists ((=) n) names) |> run_bench
