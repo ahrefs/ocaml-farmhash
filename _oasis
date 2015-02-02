@@ -2,8 +2,9 @@ OASISFormat: 0.4
 Name:        FarmHash
 Version:     0.1
 Synopsis:    Bindings for Google's FarmHash library
-Authors:     everiq
-License:     MIT
+License:     LGPL-2.1 with OCaml linking exception
+Authors:     Ahrefs Pte Ltd <github@ahrefs.com>
+Copyrights:  (C) 2014-2015 Ahrefs Pte Ltd <github@ahrefs.com>
 Plugins:     META (0.4), DevFiles (0.4)
 BuildTools:  ocamlbuild
 
