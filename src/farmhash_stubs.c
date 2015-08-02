@@ -15,8 +15,8 @@ namespace {
 inline value create_tpl128(const uint128_t& hash128)
 {
     value result = caml_alloc_tuple(2);
-    caml_modify(&Field(result, 0), caml_copy_int64(hash128.first));
-    caml_modify(&Field(result, 1), caml_copy_int64(hash128.second));
+    Store_field(result, 0, caml_copy_int64(hash128.first));
+    Store_field(result, 1, caml_copy_int64(hash128.second));
     return result;
 }
 
