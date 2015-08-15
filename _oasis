@@ -1,6 +1,6 @@
 OASISFormat: 0.4
 Name:        FarmHash
-Version:     0.1
+Version:     0.2
 Synopsis:    Bindings for Google's FarmHash library
 License:     LGPL-2.1 with OCaml linking exception
 Authors:     Ahrefs Pte Ltd <github@ahrefs.com>
