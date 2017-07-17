@@ -7,6 +7,7 @@ Authors:     Ahrefs Pte Ltd <github@ahrefs.com>
 Copyrights:  (C) 2014-2015 Ahrefs Pte Ltd <github@ahrefs.com>
 Plugins:     META (0.4), DevFiles (0.4)
 BuildTools:  ocamlbuild
+BetaFeatures: findlib_extra_files
 
 Flag benchmarks
   Description:      Enable benchmark tests
@@ -24,6 +25,7 @@ Library farmhash
   Path:             src
   Modules:          Farmhash
   CSources:         upstream/farmhash.h, upstream/farmhash.c, farmhash_stubs.c
+  FindlibExtraFiles: upstream/farmhash.h
   CCopt:            -g -x c++ -O2 -fno-strict-aliasing
   CClib:            -lstdc++
   if flag(sse42)
