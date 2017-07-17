@@ -13,12 +13,24 @@ Flag benchmarks
   Description:      Enable benchmark tests
   Default:          false
 
+Flag ssse3
+  Description:      Compile with SSSE3 extensions (must be supported by CPU)
+  Default:          false
+
+Flag sse41
+  Description:      Compile with SSE4.1 extensions (must be supported by CPU)
+  Default:          false
+
 Flag sse42
   Description:      Compile with SSE4.2 extensions (must be supported by CPU)
   Default:          false
 
 Flag aes
   Description:      Compile with AES extensions (must be supported by CPU)
+  Default:          false
+
+Flag avx
+  Description:      Compile with AVX extensions (must be supported by CPU)
   Default:          false
 
 Library farmhash
@@ -28,10 +40,16 @@ Library farmhash
   FindlibExtraFiles: upstream/farmhash.h
   CCopt:            -g -x c++ -O2 -fno-strict-aliasing
   CClib:            -lstdc++
+  if flag(ssse3)
+    CCopt+: -DFARMHASH_ASSUME_SSSE3 -mssse3
+  if flag(sse41)
+    CCopt+: -DFARMHASH_ASSUME_SSE41 -msse4.1
   if flag(sse42)
     CCopt+: -DFARMHASH_ASSUME_SSE42 -msse4.2
   if flag(aes)
     CCopt+: -DFARMHASH_ASSUME_AESNI -maes
+  if flag(avx)
+    CCopt+: -DFARMHASH_ASSUME_AVX -mavx
 
 Executable bench
   Build$:           flag(benchmarks)
