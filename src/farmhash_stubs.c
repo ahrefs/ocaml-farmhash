@@ -14,10 +14,12 @@ namespace {
 
 inline value create_tpl128(const uint128_t& hash128)
 {
-    value result = caml_alloc_tuple(2);
+    CAMLparam0();
+    CAMLlocal1(result);
+    result = caml_alloc_tuple(2);
     Store_field(result, 0, caml_copy_int64(hash128.first));
     Store_field(result, 1, caml_copy_int64(hash128.second));
-    return result;
+    CAMLreturn(result);
 }
 
 }
