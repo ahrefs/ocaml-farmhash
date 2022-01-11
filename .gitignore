@@ -1,3 +1,1 @@
-_build/
-*.install
-*.merlin
+/_build

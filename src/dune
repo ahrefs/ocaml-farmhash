@@ -1,6 +1,9 @@
 (library
   (name farmhash)
   (public_name farmhash)
-  (c_names farmhash_stubs)
-  (c_library_flags -lstdc++ -lfarmhash)
-  (c_flags -x c++ -fno-strict-aliasing))
+  (foreign_stubs
+    (language c)
+    (names farmhash_stubs)
+    (flags -x c++ -Wextra -Wstrict-overflow=5 -Wshadow -Wformat -fno-strict-aliasing)
+  )
+  (c_library_flags -lstdc++ -lfarmhash))
