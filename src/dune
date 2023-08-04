@@ -3,7 +3,7 @@
   (public_name farmhash)
   (foreign_stubs
     (language c)
-    (names farmhash_stubs)
+    (names farmhash_stubs farmhash)
     (flags -x c++ -Wextra -Wstrict-overflow=5 -Wshadow -Wformat -fno-strict-aliasing)
   )
-  (c_library_flags -lstdc++ -lfarmhash))
+  (c_library_flags -lstdc++))
